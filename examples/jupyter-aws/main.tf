@@ -1,9 +1,5 @@
-terraform {
-  required_version = "~> 0.12.9"
-}
 
 provider "aws" {
-  version = "~> 3.22.0"
   region  = var.region
   profile = var.profile
 }
@@ -22,8 +18,6 @@ provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-  load_config_file       = false
-  version                = "~> 1.13.3"
 }
 
 data "aws_availability_zones" "available" {
@@ -31,7 +25,6 @@ data "aws_availability_zones" "available" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 2.47.0"
 
   name                 = var.vpc_name
   cidr                 = "172.16.0.0/16"
